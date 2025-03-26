@@ -22,10 +22,10 @@ function HomePage() {
           </Navbar.Brand>
           <Nav className="ml-auto flex items-center">
             <Nav.Link as={Link} to="/goal" className="text-gray-700 hover:text-blue-500 px-3">GOAL</Nav.Link>
-            <Nav.Link href="/feedback" className="text-gray-700 hover:text-blue-500 px-3">FEEDBACK</Nav.Link>
-            <Nav.Link href="/Appraisal" className="text-gray-700 hover:text-blue-500 px-3">APPRAISAL DASHBOARD</Nav.Link>
+            <Nav.Link as={Link} to="/feedback" className="text-gray-700 hover:text-blue-500 px-3">FEEDBACK</Nav.Link>
+            <Nav.Link as={Link} to="/Appraisal" className="text-gray-700 hover:text-blue-500 px-3">APPRAISAL DASHBOARD</Nav.Link>
             
-            <Nav.Link href="/review" className="text-gray-700 hover:text-blue-500 px-3">REVIEW</Nav.Link>
+            <Nav.Link as={Link} to="/review" className="text-gray-700 hover:text-blue-500 px-3">REVIEW</Nav.Link>
 
             {/* Profile Dropdown */}
             <NavDropdown
@@ -41,8 +41,8 @@ function HomePage() {
               id="basic-nav-dropdown"
               align="end"
             >
-              <NavDropdown.Item href="/prof" className="text-gray-700 hover:bg-gray-100">🧑‍💼Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/login" className="text-gray-700 hover:bg-gray-100" >⬅️Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/prof" className="text-gray-700 hover:bg-gray-100">🧑‍💼Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login" className="text-gray-700 hover:bg-gray-100" >⬅️Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>
