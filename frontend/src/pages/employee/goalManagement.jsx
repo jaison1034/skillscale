@@ -7,7 +7,7 @@ import axios from "axios";
 import { useUser } from "../../context/UserContext"; // Import User Context
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope, FaPhone} from "react-icons/fa";
 import axiosInstance from "../../axiosInstance";
-
+import { Link } from 'react-router-dom';
 const GoalManagement = () => {
   const [goals, setGoals] = useState([]);
   const [completedGoals, setCompletedGoals] = useState([]);
@@ -78,10 +78,10 @@ const GoalManagement = () => {
             <h1 className="text-2xl font-bold text-[#3674B5] ml-2">SkillScale</h1>
           </Navbar.Brand>
           <Nav className="ml-auto flex items-center">
-            <Nav.Link href="/home">HOME</Nav.Link>
-            <Nav.Link href="/feedback">FEEDBACK</Nav.Link>
-            <Nav.Link href="/Appraisal">APPRAISAL DASHBOARD</Nav.Link>
-            <Nav.Link href="/review">REVIEW</Nav.Link>
+            <Nav.Link as={Link} to="/home">HOME</Nav.Link>
+            <Nav.Link as={Link} to="/feedback">FEEDBACK</Nav.Link>
+            <Nav.Link as={Link} to="/Appraisal">APPRAISAL DASHBOARD</Nav.Link>
+            <Nav.Link as={Link} to="/review">REVIEW</Nav.Link>
 
             {/* Profile Dropdown */}
             <NavDropdown
@@ -89,8 +89,8 @@ const GoalManagement = () => {
               id="basic-nav-dropdown"
               align="end"
             >
-              <NavDropdown.Item href="#profile">🧑‍💼 Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/login">⬅️ Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/prof">🧑‍💼 Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login">⬅️ Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>

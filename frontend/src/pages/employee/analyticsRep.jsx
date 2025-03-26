@@ -8,6 +8,7 @@ import img from '../../assets/images.png';
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope, FaPhone, FaChartLine } from "react-icons/fa";
 import rImg from '../../assets/analyticsrep.jpg';
 
+
 const topPerformers = [
   { name: "Adwaith", rating: 95, position: "Software Engineer" },
   { name: "Pranav", rating: 92, position: "Project Manager" },

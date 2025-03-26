@@ -8,6 +8,7 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import aImg from '../../assets/admin_b.avif';
 import { FaChartLine } from "react-icons/fa";
+import { Link } from  'react-router-dom';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -49,8 +50,8 @@ const AdminDashboard = () => {
           {/* Profile Dropdown */}
           <Nav>
             <NavDropdown title={<img src={img} alt="Profile" className="rounded-full" width="40" height="40" />} id="basic-nav-dropdown" align="end">
-              <NavDropdown.Item href="#profile">🧑‍💼Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/login">⬅️Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/prof">🧑‍💼Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login">⬅️Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>

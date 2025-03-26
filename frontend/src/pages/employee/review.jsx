@@ -9,7 +9,7 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../../axiosInstance";
-
+import { Link } from 'react-router-dom';
 const ReviewPage = () => {
   const { user } = useUser();
   const [employees, setEmployees] = useState([]);
@@ -94,10 +94,10 @@ const ReviewPage = () => {
             <h1 className="text-2xl font-bold text-[#3674B5] ml-2">SkillScale</h1>
           </Navbar.Brand>
           <Nav className="ml-auto flex items-center">
-            <Nav.Link href="/home" className="text-gray-700 hover:text-blue-500 px-3">HOME</Nav.Link>
-            <Nav.Link href="/goal" className="text-gray-700 hover:text-blue-500 px-3">GOAL</Nav.Link>
-            <Nav.Link href="/feedback" className="text-gray-700 hover:text-blue-500 px-3">FEEDBACK</Nav.Link>
-            <Nav.Link href="/Appraisal" className="text-gray-700 hover:text-blue-500 px-3">APPRAISAL DASHBOARD</Nav.Link>
+            <Nav.Link as={Link} to="/home" className="text-gray-700 hover:text-blue-500 px-3">HOME</Nav.Link>
+            <Nav.Link as={Link} to="/goal" className="text-gray-700 hover:text-blue-500 px-3">GOAL</Nav.Link>
+            <Nav.Link as={Link} to="/feedback" className="text-gray-700 hover:text-blue-500 px-3">FEEDBACK</Nav.Link>
+            <Nav.Link as={Link} to="/Appraisal" className="text-gray-700 hover:text-blue-500 px-3">APPRAISAL DASHBOARD</Nav.Link>
             <NavDropdown
               title={
                 <img
@@ -111,8 +111,8 @@ const ReviewPage = () => {
               id="basic-nav-dropdown"
               align="end"
             >
-              <NavDropdown.Item href="#profile" className="text-gray-700 hover:bg-gray-100">🧑‍💼Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/login" className="text-gray-700 hover:bg-gray-100">⬅️Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/prof" className="text-gray-700 hover:bg-gray-100">🧑‍💼Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login" className="text-gray-700 hover:bg-gray-100">⬅️Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>

@@ -9,6 +9,7 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { FaChartLine } from "react-icons/fa";
 import { FaEnvelope, FaPhone, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import axiosInstance from "../../axiosInstance";
+import { Link } from 'react-router-dom';
 
 const EmployeeSelfAssessment = () => {
   const { user } = useUser(); // Get the user from context
@@ -123,17 +124,17 @@ const EmployeeSelfAssessment = () => {
             <h1 className="text-2xl font-bold text-[#3674B5] ml-2">SkillScale</h1>
           </Navbar.Brand>
           <Nav className="ml-auto flex items-center">
-            <Nav.Link href="/home" className="text-gray-700 hover:text-blue-500 px-3">HOME</Nav.Link>
-            <Nav.Link href="/goal" className="text-gray-700 hover:text-blue-500 px-3">GOAL</Nav.Link>
-            <Nav.Link href="/Appraisal" className="text-gray-700 hover:text-blue-500 px-3">APPRAISAL DASHBOARD</Nav.Link>
-            <Nav.Link href="/review" className="text-gray-700 hover:text-blue-500 px-3">REVIEW</Nav.Link>
+            <Nav.Link as={Link} to="/home" className="text-gray-700 hover:text-blue-500 px-3">HOME</Nav.Link>
+            <Nav.Link as={Link} to="/goal" className="text-gray-700 hover:text-blue-500 px-3">GOAL</Nav.Link>
+            <Nav.Link as={Link} to="/Appraisal" className="text-gray-700 hover:text-blue-500 px-3">APPRAISAL DASHBOARD</Nav.Link>
+            <Nav.Link as={Link} to="/review" className="text-gray-700 hover:text-blue-500 px-3">REVIEW</Nav.Link>
             <NavDropdown
               title={<img src={img} alt="Profile" className="rounded-full" width="40" height="40" />}
               id="basic-nav-dropdown"
               align="end"
             >
-              <NavDropdown.Item href="#profile">🧑‍💼 Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/login">⬅️ Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/prof">🧑‍💼 Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login">⬅️ Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>
