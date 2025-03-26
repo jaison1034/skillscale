@@ -9,39 +9,37 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope, FaPhone} from "react-ico
 import axiosInstance from "../../axiosInstance";
 
 const GoalManagement = () => {
-  const [goals, setGoals] = useState([]); // Pending goals
-  const [completedGoals, setCompletedGoals] = useState([]); // Completed goals
-  const { user } = useUser(); // Get logged-in user from context
+  const [goals, setGoals] = useState([]);
+  const [completedGoals, setCompletedGoals] = useState([]);
+  const { user } = useUser();
 
-  console.log("Logged-in user:", user); // Debugging
-
-  // Fetch goals when the user is available
   useEffect(() => {
-    // Debugging
-    if (user && user.id) {
-      console.log("User detected, fetching goals...", user.id);
+    if (user && user._id) {  // Changed from user.id to user._id
+      console.log("User detected, fetching goals...", user._id);
       fetchGoals();
     }
-  }, [user]); // Runs only when `user` is updated
+  }, [user]);
 
-  // Fetch employee goals from API
   const fetchGoals = async () => {
     try {
-      console.log("Fetching goals for user ID:", user.id);
-      const response = await axiosInstance.get(`/goals/employee/${user.id}`);
-      console.log("API Response:", response);  // Check API Response
-  
+      console.log("Fetching goals for user ID:", user._id);
+      const response = await axiosInstance.get(`/goals/employee/${user._id}`);  // Changed to _id
+      
+      console.log("Full response data:", response.data);
+      
       if (!Array.isArray(response.data)) {
         console.error("Invalid response format:", response.data);
         return;
       }
-  
-      // Filter goals based on completion status
-      setGoals(response.data.filter(goal => !goal.completed)); // Pending goals
-      setCompletedGoals(response.data.filter(goal => goal.completed)); // Completed goals
-  
+      
+      setGoals(response.data.filter(goal => !goal.completed));
+      setCompletedGoals(response.data.filter(goal => goal.completed));
     } catch (error) {
-      console.error("❌ Error fetching goals:", error.response?.data || error.message);
+      console.error("Detailed error:", {
+        message: error.message,
+        response: error.response?.data,
+        config: error.config
+      });
     }
   };
 
