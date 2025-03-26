@@ -1,18 +1,26 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Employee = require("../models/Employee"); // Import Employee model
-const Manager = require("../models/Manager"); // Import Manager model
+const Employee = require("../models/Employee");
+const Manager = require("../models/Manager");
 
 const router = express.Router();
-const SECRET_KEY = "your_secret_key"; // Use a strong secret key
+const SECRET_KEY = "your_secret_key";
 
-// ✅ Register API
+// Add CORS headers middleware specifically for auth routes
+router.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://skillscale1.onrender.com");
+  res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
+// Register API
 router.post("/register", async (req, res) => {
   const { name, email, password, role, department, position } = req.body;
 
   try {
-    // Check if user exists
     const existingEmployee = await Employee.findOne({ email });
     const existingManager = await Manager.findOne({ email });
 
@@ -20,7 +28,6 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "User already exists!" });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     if (role === "employee") {
@@ -29,8 +36,7 @@ router.post("/register", async (req, res) => {
     } else if (role === "manager") {
       const newManager = new Manager({ name, email, password: hashedPassword, role, department, position });
       await newManager.save();
-    }
-     else {
+    } else {
       return res.status(400).json({ message: "Invalid role selected!" });
     }
 
@@ -41,7 +47,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// ✅ Login API
+// Login API
 router.post("/login", async (req, res) => {
   const { name, password } = req.body;
 
@@ -74,5 +80,5 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error!" });
   }
 });
-  
+
 module.exports = router;

@@ -1,9 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const path = require("path");
-const authRoutes = require("./routes/authRoutes");
 const cors = require("cors"); 
+const authRoutes = require("./routes/authRoutes");
 const goalRoutes = require("./routes/goalRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
 const reviewRoutes = require("./routes/reviewRoutes.js");
@@ -14,16 +13,39 @@ const managerAssessmentRoutes = require("./routes/managerSelfAssement.js");
 const adminRoutes = require('./routes/adminRoutes.js');
 const feedbackRoutes = require('./routes/feedbackRoutes.js');
 
-
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Enhanced CORS configuration
+const allowedOrigins = [
+  "http://localhost:5174",
+  "https://skillscale1.onrender.com",
+  "https://skillscale-sqip.onrender.com"
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests for all routes
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
-app.use(cors({
-  origin: ["http://localhost:5174"],
-  credentials: true}
-)); 
+
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -31,6 +53,7 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("Connected to MongoDB"))
 .catch(err => console.error("MongoDB connection error:", err));
 
+// Set up API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/goals", goalRoutes);
 app.use("/api/employees", employeeRoutes);
@@ -42,7 +65,7 @@ app.use("/api/employee-assessment", employeeAssessmentRoutes);
 app.use("/api/manager-assessment", managerAssessmentRoutes);
 app.use('/api/admin', adminRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
