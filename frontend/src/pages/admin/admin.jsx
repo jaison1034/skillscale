@@ -2,13 +2,13 @@ import { useState } from "react";
 import { FaTachometerAlt, FaBullseye, FaComment } from "react-icons/fa";
 import { MdReviews } from "react-icons/md";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import {  Outlet, useNavigate } from "react-router-dom";
 import img from "../../assets/images.png";
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import aImg from '../../assets/admin_b.avif';
 import { FaChartLine } from "react-icons/fa";
-
+import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
