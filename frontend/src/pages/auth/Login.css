@@ -1,0 +1,17 @@
+@import "tailwindcss";
+/* Add smooth transitions for inputs and buttons */
+input, button {
+    transition: all 0.3s ease;
+  }
+  
+  /* Hover effect for the register link */
+  a:hover {
+    opacity: 0.8;
+  }
+  
+  /* Ensure the image doesn't overflow on smaller screens */
+  @media (max-width: 1024px) {
+    .hidden {
+      display: none;
+    }
+  }
