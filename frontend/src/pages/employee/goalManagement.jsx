@@ -27,7 +27,7 @@ const GoalManagement = () => {
   // Fetch employee goals from API
   const fetchGoals = async () => {
     try {
-      console.log("Fetching goals for user ID:", user._id);
+      console.log("Fetching goals for user ID:", user.id);
       const response = await axiosInstance.get(`/goals/employee/${user.id}`);
       console.log("API Response:", response);  // Check API Response
   

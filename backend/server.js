@@ -18,6 +18,7 @@ const port = process.env.PORT || 5000;
 
 // Enhanced CORS configuration
 const allowedOrigins = [
+  "http://localhost:5173",
   "http://localhost:5174",
   "https://skillscale1.onrender.com",
   "https://skillscale-sqip.onrender.com"
