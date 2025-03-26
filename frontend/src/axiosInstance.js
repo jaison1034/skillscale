@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || "https://skillscale-sqip.onrender.com",
+  baseURL: (process.env.REACT_APP_API_BASE_URL || "https://skillscale-sqip.onrender.com") + "/api", // Added /api here
   headers: {
     "Content-Type": "application/json",
   },
