@@ -7,7 +7,6 @@ import img from "../../assets/images.png";
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope,FaChartLine } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import bImg from '../../assets/managerb.jpg';
-import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
