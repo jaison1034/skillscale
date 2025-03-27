@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { FaChartLine } from "react-icons/fa";
 import { useUser } from "../../context/UserContext";
 import rImg from "../../assets/images.png";
 import bImg from "../../assets/review.jpg";
@@ -9,13 +8,18 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../../axiosInstance";
-import { Link } from 'react-router-dom';
+import { FaChartLine, FaBars, FaTimes } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import img from '../../assets/images.png';
+
 const ReviewPage = () => {
   const { user } = useUser();
   const [employees, setEmployees] = useState([]);
   const [completedReviews, setCompletedReviews] = useState([]);
   const [pendingReviews, setPendingReviews] = useState([]);
   const [newReview, setNewReview] = useState({ employee: "", feedback: "" });
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -87,36 +91,117 @@ const ReviewPage = () => {
   return (
     <>
       {/* Navbar */}
-      <Navbar className="bg-white shadow-md p-0 m-0">
-        <Container fluid>
-          <Navbar.Brand href="/" className="flex items-center">
-            <FaChartLine className="text-blue-600 text-3xl" />
-            <h1 className="text-2xl font-bold text-[#3674B5] ml-2">SkillScale</h1>
-          </Navbar.Brand>
-          <Nav className="ml-auto flex items-center">
-            <Nav.Link as={Link} to="/home" className="text-gray-700 hover:text-blue-500 px-3">HOME</Nav.Link>
-            <Nav.Link as={Link} to="/goal" className="text-gray-700 hover:text-blue-500 px-3">GOAL</Nav.Link>
-            <Nav.Link as={Link} to="/feedback" className="text-gray-700 hover:text-blue-500 px-3">FEEDBACK</Nav.Link>
-            <Nav.Link as={Link} to="/Appraisal" className="text-gray-700 hover:text-blue-500 px-3">APPRAISAL DASHBOARD</Nav.Link>
-            <NavDropdown
-              title={
-                <img
-                  src={rImg}
-                  alt="Profile"
-                  className="rounded-full"
-                  width="40"
-                  height="40"
-                />
-              }
-              id="basic-nav-dropdown"
-              align="end"
-            >
-              <NavDropdown.Item as={Link} to="/prof" className="text-gray-700 hover:bg-gray-100">🧑‍💼Profile</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/login" className="text-gray-700 hover:bg-gray-100">⬅️Logout</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Container>
-      </Navbar>
+       <nav className="bg-white shadow-lg sticky top-0 z-50">
+                       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                         <div className="flex items-center justify-between h-20">
+                           {/* Logo/Brand */}
+                           <div className="flex items-center">
+                             <FaChartLine className="text-blue-600 text-3xl" />
+                             <h1 className="text-2xl font-bold text-gray-700 ml-2">SkillScale</h1>
+                           </div>
+                 
+                           {/* Desktop Menu */}
+                           <div className="hidden md:flex items-center space-x-2">
+                             {["HOME","GOAL", "FEEDBACK", "APPRAISAL", "REVIEW"].map((path, index) => (
+                               <NavLink
+                                 key={index}
+                                 to={`/${path}`}
+                                 className={({ isActive }) =>
+                                   `px-4 py-2 rounded-md text-sm font-medium transition-colors 
+                                   ${isActive ? "bg-gray-300 text-gray-800" : "bg-transparent text-gray-700 hover:bg-gray-200"}`
+                                 }
+                               >
+                                 <button className="w-full h-full uppercase">{path}</button>
+                               </NavLink>
+                             ))}
+                 
+                             {/* Profile Dropdown */}
+                             <div className="relative ml-2">
+                               <button
+                                 onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                 className="flex items-center focus:outline-none transition-colors hover:bg-gray-200 rounded-full p-1"
+                               >
+                                 <img
+                                   className="h-9 w-9 rounded-full border-2 border-transparent hover:border-gray-300 transition-all"
+                                   src={img}
+                                   alt="Profile"
+                                 />
+                               </button>
+                 
+                               {/* Dropdown menu */}
+                               {isProfileOpen && (
+                                 <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5">
+                                   <div className="py-1">
+                                     <NavLink to="/prof" onClick={() => setIsProfileOpen(false)} className="no-underline"
+          style={{ textDecoration: "none" }}>
+                                       <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+                                         🧑‍💼 Profile
+                                       </button>
+                                     </NavLink>
+                                     <NavLink to="/login" onClick={() => setIsProfileOpen(false)} className="no-underline"
+          style={{ textDecoration: "none" }}>
+                                       <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+                                         ⬅️ Logout
+                                       </button>
+                                     </NavLink>
+                                   </div>
+                                 </div>
+                               )}
+                             </div>
+                           </div>
+                 
+                           {/* Mobile menu button */}
+                           <div className="md:hidden flex items-center">
+                             <button
+                               onClick={() => setIsMenuOpen(!isMenuOpen)}
+                               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-200 focus:outline-none transition-colors"
+                             >
+                               {isMenuOpen ? <FaTimes className="block h-6 w-6" /> : <FaBars className="block h-6 w-6" />}
+                             </button>
+                           </div>
+                         </div>
+                       </div>
+                 
+                       {/* Mobile Menu */}
+                       <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
+                         <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-white shadow-xl rounded-b-lg">
+                           {["HOME","GOAL", "FEEDBACK", "APPRAISAL", "REVIEW"].map((path, index) => (
+                             <NavLink
+                               key={index}
+                               to={`/${path}`}
+                               className="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200"
+                               onClick={() => setIsMenuOpen(false)}
+                             >
+                               <button className="w-full h-full uppercase">{path}</button>
+                             </NavLink>
+                           ))}
+                 
+                           {/* Mobile Profile Dropdown */}
+                           <div className="pt-4 pb-2 border-t border-gray-200">
+                             <div className="flex items-center px-5 py-3">
+                               <img className="h-10 w-10 rounded-full border-2 border-gray-300" src={img} alt="Profile" />
+                               <div className="ml-3">
+                                 <div className="text-base font-medium text-gray-800">User Profile</div>
+                               </div>
+                             </div>
+                             <div className="mt-1 px-2 space-y-1">
+                               <NavLink to="/prof" onClick={() => setIsMenuOpen(false)} className="no-underline"
+          style={{ textDecoration: "none" }}>
+                                 <button className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200">
+                                   🧑‍💼 Profile
+                                 </button>
+                               </NavLink>
+                               <NavLink to="/login" onClick={() => setIsMenuOpen(false)} className="no-underline"
+          style={{ textDecoration: "none" }}>
+                                 <button className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200">
+                                   ⬅️ Logout
+                                 </button>
+                               </NavLink>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </nav>
       
       {/* Review Section */}
       <div className="bg-cover bg-center min-h-screen relative pt-4 "
