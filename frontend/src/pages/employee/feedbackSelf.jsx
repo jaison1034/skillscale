@@ -38,17 +38,18 @@ const EmployeeSelfAssessment = () => {
       toast.error("Failed to load categories");
     }
   };
-
   const fetchCompletedAssessments = async () => {
     if (!user?.id) return;
     try {
       const response = await axiosInstance.get(
         `/self-assessment/get-completed-assessments/${user.id}`
       );
-      setCompletedAssessments(response.data);
+      // Make sure to handle both array and object responses
+      setCompletedAssessments(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error("Error fetching completed assessments", error);
       toast.error("Failed to load completed assessments");
+      setCompletedAssessments([]); // Reset to empty array on error
     }
   };
 
