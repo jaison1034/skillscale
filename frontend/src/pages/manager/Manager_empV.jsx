@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaUserTie } from "react-icons/fa";
-import axiosInstance from "../../axiosInstance";
+
 
 const ManagerEmployeePage = () => {
   const [employees, setEmployees] = useState([]);
@@ -9,7 +9,7 @@ const ManagerEmployeePage = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axiosInstance.get("/employees"); 
+        const response = await fetch("http://localhost:5000/api/employees"); // Replace with your backend URL
         const data = await response.json();
         setEmployees(data);
       } catch (error) {

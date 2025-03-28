@@ -9,7 +9,6 @@ import { FaChartLine, FaBars, FaTimes } from "react-icons/fa";
 import { FaEnvelope, FaPhone, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import axiosInstance from "../../axiosInstance";
 import { NavLink } from "react-router-dom";
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const EmployeeSelfAssessment = () => {
   const { user } = useUser();
@@ -22,7 +21,6 @@ const EmployeeSelfAssessment = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  // Fetch data on component mount or when user changes
   useEffect(() => {
     if (user && user.id) {
       fetchCategories();
@@ -31,57 +29,58 @@ const EmployeeSelfAssessment = () => {
     }
   }, [user]);
 
-  // Fetch all categories
   const fetchCategories = async () => {
     try {
       const response = await axiosInstance.get("/self-assessment/get-categories");
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories", error);
+      toast.error("Failed to load categories");
     }
   };
 
-  // Fetch completed assessments for the user
   const fetchCompletedAssessments = async () => {
-    if (!user || !user.id) return;
+    if (!user?.id) return;
     try {
-      const response = await axiosInstance.get(`/get-completed-assessments/${user.id}`);
+      const response = await axiosInstance.get(
+        `/self-assessment/get-completed-assessments/${user.id}`
+      );
       setCompletedAssessments(response.data);
     } catch (error) {
       console.error("Error fetching completed assessments", error);
+      toast.error("Failed to load completed assessments");
     }
   };
 
-  // Fetch pending assessments for the user
   const fetchPendingAssessments = async () => {
-    if (!user || !user.id) return;
+    if (!user?.id) return;
     try {
-      const response = await axiosInstance.get(`/self-assessment/get-pending-assessments/${user.id}`);
+      const response = await axiosInstance.get(
+        `/self-assessment/get-pending-assessments/${user.id}`
+      );
       setPendingAssessments(response.data);
     } catch (error) {
       console.error("Error fetching pending assessments", error);
+      toast.error("Failed to load pending assessments");
     }
   };
 
-  // Fetch questions based on selected category
   const fetchQuestions = async (category) => {
     try {
-      const response = await axiosInstance.get(`/self-assessment/get-questions/${category}`);
+      const response = await axiosInstance.get(
+        `/self-assessment/get-questions/${category}`
+      );
       setQuestions(response.data);
     } catch (error) {
       console.error("Error fetching questions", error);
+      toast.error("Failed to load questions");
     }
   };
 
-  // Handle answer input change
   const handleAnswerChange = (questionId, answer) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: answer,
-    }));
+    setAnswers((prev) => ({ ...prev, [questionId]: answer }));
   };
 
-  // Save all answers
   const handleSaveAnswers = async () => {
     if (!user || !user.id) {
       toast.error("You must be logged in to save answers.", { position: "top-right" });
@@ -90,15 +89,17 @@ const EmployeeSelfAssessment = () => {
 
     try {
       for (const questionId in answers) {
-        await axiosInstance.post(`/self-assessment/save-answer/${questionId}`, {
+        await axios.post(`http://localhost:5000/api/self-assessment/save-answer/${questionId}`, {
           userId: user.id,
           answer: answers[questionId],
         });
       }
 
+      // Refetch completed and pending assessments to update the UI
       await fetchCompletedAssessments();
       await fetchPendingAssessments();
 
+      // Clear the Attend Assessment card
       setSelectedCategory(null);
       setQuestions([]);
       setAnswers({});
