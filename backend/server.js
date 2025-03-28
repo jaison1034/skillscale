@@ -12,7 +12,7 @@ const employeeAssessmentRoutes = require("./routes/employeeAssessmentRoutes");
 const managerAssessmentRoutes = require("./routes/managerSelfAssement.js");
 const adminRoutes = require('./routes/adminRoutes.js');
 const feedbackRoutes = require('./routes/feedbackRoutes.js');
-const performanceDashboardRoutes = require('./routes/performanceDashboardRoutes');
+const performanceDashboardRoutes = require('./routes/performanceDashboard.js');
 
 const app = express();
 const port = process.env.PORT || 5000;
