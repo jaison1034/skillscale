@@ -12,6 +12,7 @@ const employeeAssessmentRoutes = require("./routes/employeeAssessmentRoutes");
 const managerAssessmentRoutes = require("./routes/managerSelfAssement.js");
 const adminRoutes = require('./routes/adminRoutes.js');
 const feedbackRoutes = require('./routes/feedbackRoutes.js');
+const performanceDashboardRoutes = require('./routes/performanceDashboardRoutes');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -65,6 +66,7 @@ app.use("/api/self-assessment", selfAssessmentRoutes);
 app.use("/api/employee-assessment", employeeAssessmentRoutes);
 app.use("/api/manager-assessment", managerAssessmentRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/dashboard', performanceDashboardRoutes);
 
 // Start the server
 app.listen(port, () => {

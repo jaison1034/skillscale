@@ -23,6 +23,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from '../src/context/UserContext';
 import AllEmployeeFeedback from "./pages/admin/allFeedback";
+import Dashboard from "./pages/manager/manager_dashboard";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="attenm" element={<AttendanceM />}/>
           <Route path="mempv" element={<MeV />}/>
           <Route path="Analytics" element={<Analytics />} />
+          <Route path="dashboard" element={<Dashboard />} />
         </Route>
         <Route path="/manager" element={<Manager />}/>
     </Routes>

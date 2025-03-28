@@ -19,7 +19,7 @@ const AdminDashboard = () => {
     { name: "🏹goal-tracking", key: "/manager/goals" },
     { name: "📢Assessment", key: "/manager/feedbacka" },
     { name: "📊Analytics", key:"/manager/Analytics"  },
-    { name: "👥Employee", key: "/manager/mempv" },
+    { name: "👥Dashboard", key: "/manager/dashboard" },
   ];
 
   const handleTabClick = (path) => {
