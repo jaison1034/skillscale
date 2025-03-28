@@ -89,7 +89,7 @@ const EmployeeSelfAssessment = () => {
 
     try {
       for (const questionId in answers) {
-        await axios.post(`http://localhost:5000/api/self-assessment/save-answer/${questionId}`, {
+        await axios.post(`/self-assessment/save-answer/${questionId}`, {
           userId: user.id,
           answer: answers[questionId],
         });
