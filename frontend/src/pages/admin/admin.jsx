@@ -2,13 +2,12 @@ import { useState } from "react";
 import { FaTachometerAlt, FaBullseye, FaComment } from "react-icons/fa";
 import { MdReviews } from "react-icons/md";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import {  Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import img from "../../assets/images.png";
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import aImg from '../../assets/admin_b.avif';
 import { FaChartLine } from "react-icons/fa";
-import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -17,10 +16,10 @@ const AdminDashboard = () => {
 
   const menuItems = [
     
-    { name: "Tempalate Management", key: "/admin/goals" },
-    { name: "Reports & Analytics",  key: "/admin/feedbacka" },
-    { name: "User Management", key: "/admin/empv" },
-    { name: "Feedback", key: "/admin/adminf"}
+    { name: "👥User Management", key: "/admin/empv" },
+    { name: "🌟Performance", key: "/admin/perfor" },
+    { name: "📊Reports & Analytics",  key: "/admin/Analytics" },
+
   ];
 
   const handleTabClick = (path) => {
@@ -50,8 +49,8 @@ const AdminDashboard = () => {
           {/* Profile Dropdown */}
           <Nav>
             <NavDropdown title={<img src={img} alt="Profile" className="rounded-full" width="40" height="40" />} id="basic-nav-dropdown" align="end">
-              <NavDropdown.Item as={Link} to="/prof">🧑‍💼Profile</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/login">⬅️Logout</NavDropdown.Item>
+              <NavDropdown.Item href="#profile">🧑‍💼Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/login">⬅️Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>

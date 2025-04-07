@@ -23,7 +23,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from '../src/context/UserContext';
 import AllEmployeeFeedback from "./pages/admin/allFeedback";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from "./pages/manager/manager_dashboard";
+import Performance from "./pages/admin/performance_score";
+import AppraisalPage from "./pages/employee/AppraisalPage";
 
 function App() {
   return (
@@ -42,15 +45,17 @@ function App() {
       <Route path="/feedback" element={<Feedback />} />
       <Route path="/review" element={<Review />} />
       <Route path="/Appraisal" element={<Appraisal />} />
-      
       <Route path="/goala" element={<GoalA />} />
      <Route path="/feedbacka" element={<FeedbackA />} />
      <Route path="/prof" element={<Pro />} />
+     <Route path="/AppraisalPage" element={<AppraisalPage />} />
      <Route path="/admin" element={<AdminDashboard />}>
           <Route path="goals" element={<GoalA />} />
           <Route path="empv" element={<EmpV />} />
           <Route path="adminr" element={<AdminR />} />   
-          <Route path="adminf" element={<AllEmployeeFeedback />} />  
+          <Route path="adminf" element={<AllEmployeeFeedback />} /> 
+          <Route path="Analytics" element={<Analytics />} />
+          <Route path="perfor" element={<Performance />} />
         </Route>
         <Route path="/manager" element={<Manager />}>
           <Route path="goals" element={<GoalA />} />

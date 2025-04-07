@@ -14,6 +14,19 @@ const EmployeeSchema = new mongoose.Schema({
   goalsCompleted: { type: Number, default: 0 },
   assessmentsAssigned: { type: Number, default: 0 }, 
   assessmentsCompleted: { type: Number, default: 0 },
+  hasCompletedSelfAssessment: {
+    type: Boolean,
+    default: false
+  },
+  lastAssessmentCompletionDate: Date,
+  performanceScore: { 
+    type: Number 
+  },
+  performanceScore: { type: Number, default: 0 },
+  attendance: { 
+    present: { type: Number, default: 0 },
+    total: { type: Number, default: 0 }
+  }
 });
 
 const Employee = mongoose.models.Employee || mongoose.model("Employee", EmployeeSchema);

@@ -23,7 +23,7 @@ function HomePage() {
            
                      {/* Desktop Menu */}
                      <div className="hidden md:flex items-center space-x-2">
-                       {["HOME","GOAL", "FEEDBACK", "APPRAISAL", "REVIEW"].map((path, index) => (
+                       {["HOME","GOAL", "FEEDBACK", "APPRAISALPAGE", "REVIEW"].map((path, index) => (
                          <NavLink
                            key={index}
                            to={`/${path}`}
