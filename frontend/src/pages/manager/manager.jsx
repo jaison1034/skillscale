@@ -4,9 +4,11 @@ import { MdReviews } from "react-icons/md";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import img from "../../assets/images.png";
-import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope,FaChartLine } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope,FaChartLine , FaPhone} from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import bImg from '../../assets/managerb.jpg';
+import logo from "../../assets/logo.webp";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -29,107 +31,169 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div
+  className="min-h-screen flex flex-col"
+  style={{
+    background: "linear-gradient(135deg, #FF6B81 0%, #FF8C42 50%, #FFD97D 100%)",
+    backgroundAttachment: "fixed"
+  }}
+>
       {/* Navbar */}
-      <Navbar className="bg-white shadow-md p-0 m-0">
+      <Navbar className="bg-[#140000] shadow-md border-b border-[#EA033F]/20 p-0 m-0">
         <Container fluid className="flex items-center justify-between px-4 py-2">
           {/* Logo & Toggle Button */}
           <div className="flex items-center">
             <button 
-              className="lg:hidden p-2 text-[#3674B5]" 
+              className="lg:hidden p-2 text-[#F7F7F7]" 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
-              <GiHamburgerMenu size={24} />
+              <GiHamburgerMenu size={24} className="hover:text-[#FB5607] transition-colors" />
             </button>
-            <FaChartLine className="text-blue-600 text-3xl" />
-              <h1 className="text-2xl font-bold text-[#3674B5] ml-2">SkillScale</h1>
-            
+    
+            <div className="flex items-center ml-2">
+              <img
+                src={logo}
+                alt="SkillScale Logo"
+                className="h-12 w-auto object-contain"
+              />
+            </div>
           </div>
-
+    
           {/* Profile Dropdown */}
           <Nav>
-            <NavDropdown title={<img src={img} alt="Profile" className="rounded-full" width="40" height="40" />} id="basic-nav-dropdown" align="end">
-              <NavDropdown.Item href="#profile">🧑‍💼Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/login">⬅️Logout</NavDropdown.Item>
+            <NavDropdown 
+              title={<img src={img} alt="Profile" className="rounded-full border-2 border-transparent hover:border-[#FB5607] transition-all" width="40" height="40" />} 
+              id="basic-nav-dropdown" 
+              align="end"
+              className="bg-[#140000]"
+            >
+              <NavDropdown.Item 
+                href="#profile" 
+                className="text-[#140000] hover:bg-[#FB5607]/10"
+              >
+                🧑‍💼 Profile
+              </NavDropdown.Item>
+              <NavDropdown.Item 
+                href="/login" 
+                className="text-[#140000] hover:bg-[#FB5607]/10"
+              >
+                ⬅️ Logout
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>
       </Navbar>
-
-      {/* Sidebar and Content Wrapper */}
+    
       <div className="flex flex-1">
-        {/* Sidebar (Responsive) */}
-        <div className={`fixed lg:relative top-0 left-0 w-64 bg-[#3674B5] text-white p-4 transition-transform transform  ${
+        {/* Sidebar */}
+        <div className={`fixed lg:relative top-0 left-0 w-64 bg-[#140000] text-[#F7F7F7] p-4 transition-transform transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:block h-full lg:h-auto z-50`}>
-          <h2 className="text-xl font-bold mb-4">Manager Panel</h2>
+        } lg:translate-x-0 lg:block h-full lg:h-auto z-50 border-r border-[#EA033F]/20`}>
+          <h2 className="text-xl font-bold mb-6 text-[#FB5607] border-b border-[#EA033F]/30 pb-3">Manager Panel</h2>
           <nav className="flex flex-col space-y-2">
             {menuItems.map((item) => (
               <button
                 key={item.key}
                 onClick={() => handleTabClick(item.key)}
-                className={`flex items-center space-x-2 p-2 w-full text-left hover:bg-[#2a5a8a] rounded-md ${
-                  activeTab === item.key ? "bg-[#2a5a8a]" : ""
+                className={`flex items-center space-x-2 p-3 w-full text-left rounded-md transition-all duration-200 ${
+                  activeTab === item.key
+                    ? "bg-gradient-to-r from-[#EA033F] to-[#FB5607] text-white shadow-md"
+                    : "hover:bg-[#FB5607]/10 hover:text-white text-[#F7F7F7]/90"
                 }`}
               >
-                {item.icon}
+                <span className={activeTab === item.key ? "text-white" : "text-[#FB5607]"}>
+                  {item.icon}
+                </span>
                 <span>{item.name}</span>
               </button>
             ))}
           </nav>
         </div>
-
+    
         {/* Content Area */}
-        <div className="flex-1 p-4 bg-gray-100"style={{ backgroundImage: `url(${bImg})`}}>
-          <p className="text-4xl text-left">Manager Dashboard</p>
-          <Outlet />
+        <div className="flex-1 p-6 backdrop-blur-sm">
+          <p className="text-4xl text-left text-white mb-6 font-bold drop-shadow-lg">Manager Dashboard</p>
+          <div className="backdrop-blur-lg bg-[#140000]/60 rounded-lg shadow-xl p-6 border border-[#EA033F]/20">
+            <Outlet />
+          </div>
         </div>
       </div>
-       {/* Footer */}
-       <div>
-       <footer className="bg-gray-900 text-white mt-auto">
-    <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+    
+      <footer className="bg-[#140000] text-[#F7F7F7] py-8 border-t border-[#EA033F]/30">
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Company Info */}
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <img
+                src={logo}
+                alt="SkillScale Logo"
+                className="h-50 w-30 object-contain"
+              />
+            </div>
+            <p className="text-[#F7F7F7]/80">
+              Empowering growth through continuous performance tracking.
+            </p>
+            <div className="flex space-x-4 md:hidden">
+              <a href="https://facebook.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+                <FaFacebook size={20} />
+              </a>
+              <a href="https://twitter.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+                <FaTwitter size={20} />
+              </a>
+              <a href="https://linkedin.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+                <FaLinkedin size={20} />
+              </a>
+            </div>
+          </div>
       
-      {/* Company Info */}
-      <div>
-        <h2 className="text-lg font-bold">SkillScale</h2>
-        <p className="mt-2 text-gray-400">Empowering growth through continuous performance tracking.</p>
-      </div>
-
-      {/* Contact Info */}
-      <div className="mb-6">
-        <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-        <ul className="space-y-2">
-          <li className="flex items-center justify-center md:justify-start">
-            📧 info@skillscale.com
-          </li>
-          <li className="flex items-center justify-center md:justify-start">
-            📞 6282645889
-          </li>
-          <li className="flex items-center justify-center md:justify-start">
-            📍 CyberPark, Kozhikode, India
-          </li>
-        </ul>
-      </div>
-
-      {/* Social Links */}
-      <div>
-        <h3 className="text-lg font-semibold">Connect With Us</h3>
-        <div className="mt-4 flex justify-center md:justify-start space-x-4">
-          <a href="https://facebook.com" className="text-gray-400 hover:text-white"><FaFacebook size={20} /></a>
-          <a href="https://twitter.com" className="text-gray-400 hover:text-white"><FaTwitter size={20} /></a>
-          <a href="https://linkedin.com" className="text-gray-400 hover:text-white"><FaLinkedin size={20} /></a>
-          <a href="mailto:info@skillscale.com" className="text-gray-400 hover:text-white"><FaEnvelope size={20} /></a>
+          {/* Contact Info */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+              Contact Us
+            </h4>
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <FaEnvelope className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+                info@skillscale.com
+              </li>
+              <li className="flex items-start">
+                <FaPhone className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+                +91 6282645889
+              </li>
+              <li className="flex items-start">
+                <FaMapMarkerAlt className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+                <span>CyberPark, Kozhikode, India</span>
+              </li>
+            </ul>
+          </div>
+      
+          {/* Social Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+              Connect With Us
+            </h3>
+            <div className="flex space-x-6">
+              <a href="https://facebook.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+                <FaFacebook size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+              </a>
+              <a href="https://twitter.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+                <FaTwitter size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+              </a>
+              <a href="https://linkedin.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+                <FaLinkedin size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+              </a>
+              <a href="mailto:info@skillscale.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+                <FaEnvelope size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-
-    {/* Copyright */}
-    <div className="text-center text-gray-500 text-sm border-t border-gray-600 mt-2 pt-2">
-      &copy; 2025 SkillScale. All Rights Reserved.
-    </div>
-  </footer>
-  </div>
+        
+        {/* Copyright */}
+        <div className="mt-8 pt-6 border-t border-[#EA033F]/10 text-center text-[#F7F7F7]/60 text-sm">
+          &copy; {new Date().getFullYear()} SkillScale. All Rights Reserved.
+        </div>
+      </footer>
     </div>
     
     

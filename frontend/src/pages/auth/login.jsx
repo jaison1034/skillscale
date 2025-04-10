@@ -8,7 +8,8 @@ import { useUser } from '../../context/UserContext';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from '../../axiosInstance';
-
+import logo from "../../assets/logo.webp";
+import side from "../../assets/loginside.webp";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -62,40 +63,45 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-[#D1F8EF] to-[#A1E3F9] min-h-screen flex items-center justify-center relative">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#EA033F] via-[#FB5607] to-[#140000] relative">
       <div className="absolute top-6 left-6 flex items-center space-x-2 z-10">
-        <FaChartLine className="text-blue-600 text-3xl" />
-        <h1 className="text-2xl font-bold text-[#3674B5]">SkillScale</h1>
+         <div className="flex items-center">
+          <img
+            src={logo}
+            alt="SkillScale Logo"
+            className="h-50 w-40 object-contain "
+          />
+        </div>
       </div>
-
+  
       <div className="hidden lg:block w-1/2 h-screen overflow-hidden z-0">
         <img 
-          src={loginImage} 
+          src={side} 
           alt="SkillScale" 
-          className="w-full h-full object-cover transform scale-110" 
+          className="w-full h-full object-cover brightness-90" 
         />
       </div>
-
+  
       <div className="w-full lg:w-1/2 flex justify-center items-center p-8 z-20">
-        <div className="text-left max-w-md w-full bg-white shadow-2xl rounded-2xl p-8 border border-[#578FCA]">
-          <h2 className="text-xl font-semibold text-gray-700 mb-6">Login to Your Account</h2>
-
+        <div className="text-left max-w-md w-full bg-[#F7F7F7] shadow-xl rounded-2xl p-10 border border-[#EA033F]">
+          <h2 className="text-2xl font-bold text-[#140000] mb-6">Welcome Back 👋</h2>
+  
           <form onSubmit={handleLogin}>
             <div className="mb-6">
-              <label className="block text-[#3674B5] font-medium mb-2">Name:</label>
+              <label className="block text-[#140000] font-medium mb-2">Name</label>
               <input 
                 type="text"
                 name="name"
                 value={loginData.name} 
                 onChange={handleChange}
                 placeholder="Enter your name"
-                className="w-full px-4 py-3 border border-[#A1E3F9] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#578FCA] transition-all"
+                className="w-full px-4 py-3 border border-[#FB5607] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all bg-white shadow-sm"
                 required
               />
             </div>
-
-            <div className="mb-6 relative">
-              <label className="block text-[#3674B5] font-medium mb-2">Password:</label>
+  
+            <div className="mb-6">
+              <label className="block text-[#140000] font-medium mb-2">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -103,30 +109,30 @@ const Login = () => {
                   value={loginData.password}
                   onChange={handleChange}
                   placeholder="Enter your password"
-                  className="w-full px-4 py-3 border border-[#A1E3F9] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#578FCA] transition-all pr-10"
+                  className="w-full px-4 py-3 border border-[#FB5607] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all pr-10 bg-white shadow-sm"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700"
+                  className="absolute inset-y-0 right-3 flex items-center text-[#140000] hover:text-[#EA033F]"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
             </div>
-
+  
             <button 
               type="submit" 
-              className="w-full bg-[#3674B5] text-white py-3 rounded-lg hover:bg-[#578FCA] transition-all font-semibold"
+              className="w-full bg-gradient-to-r from-[#EA033F] to-[#FB5607] text-white py-3 rounded-lg hover:opacity-90 transition-all font-semibold shadow-md"
             >
               Sign In
             </button>
           </form>
-
-          <p className="text-center mt-6 text-gray-600">
-            Don't have an account?{" "}
-            <Link to="/register" className="text-[#3674B5] hover:underline font-medium">
+  
+          <p className="text-center mt-6 text-[#140000]">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-[#EA033F] hover:underline font-medium">
               Register
             </Link>
           </p>

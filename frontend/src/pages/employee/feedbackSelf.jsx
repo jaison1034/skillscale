@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
-import imgn from '../../assets/feedback.avif';
-import img from "../../assets/images.png";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../../context/UserContext";
-import { FaChartLine, FaBars, FaTimes } from "react-icons/fa";
-import { FaEnvelope, FaPhone, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import axiosInstance from "../../axiosInstance";
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
+import { 
+  FaChartLine, FaBars, FaTimes, FaEnvelope, 
+  FaPhone, FaFacebook, FaTwitter, FaLinkedin, 
+  FaMapMarkerAlt 
+} from "react-icons/fa";
+import img from "../../assets/images.png";
+import logo from "../../assets/logo.webp";
 
 const EmployeeSelfAssessment = () => {
   const { user } = useUser();
@@ -28,8 +31,7 @@ const EmployeeSelfAssessment = () => {
       fetchPendingAssessments();
     }
   }, [user]);
-
-  const fetchCategories = async () => {
+const fetchCategories = async () => {
     try {
       const response = await axiosInstance.get("/self-assessment/get-categories");
       setCategories(response.data);
@@ -112,257 +114,339 @@ const EmployeeSelfAssessment = () => {
   };
 
   return (
-    <div className="bg-cover bg-center min-h-screen flex flex-col" style={{ backgroundImage: `url(${imgn})` }}>
-      {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-    
-      <div className="relative z-10 flex flex-col min-h-screen">
-     <nav className="bg-white shadow-lg sticky top-0 z-50">
-                           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                             <div className="flex items-center justify-between h-20">
-                               {/* Logo/Brand */}
-                               <div className="flex items-center">
-                                 <FaChartLine className="text-blue-600 text-3xl" />
-                                 <h1 className="text-2xl font-bold text-gray-700 ml-2">SkillScale</h1>
-                               </div>
-                     
-                               {/* Desktop Menu */}
-                               <div className="hidden md:flex items-center space-x-2">
-                                 {["HOME","GOAL", "FEEDBACK", "APPRAISALPAGE", "REVIEW"].map((path, index) => (
-                                   <NavLink
-                                     key={index}
-                                     to={`/${path}`}
-                                     className={({ isActive }) =>
-                                       `px-4 py-2 rounded-md text-sm font-medium transition-colors 
-                                       ${isActive ? "bg-gray-300 text-gray-800" : "bg-transparent text-gray-700 hover:bg-gray-200"}`
-                                     }
-                                   >
-                                     <button className="w-full h-full uppercase">{path}</button>
-                                   </NavLink>
-                                 ))}
-                                 <div className="relative ml-2">
-            <button
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center focus:outline-none transition-colors hover:bg-gray-200 rounded-full p-1"
-            >
-              <img
-                className="h-9 w-9 rounded-full border-2 border-transparent hover:border-gray-300 transition-all"
-                src={img}
-                alt="Profile"
-              />
+    <div className="bg-black min-h-screen">
+      {/* Navbar (same as homepage) */}
+      <nav className="bg-[#140000] shadow-lg sticky top-0 z-50 border-b border-[#EA033F]/20">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-between h-20">
+      {/* Logo/Brand */}
+      <div className="flex items-center">
+  <img
+    src={logo}
+    alt="SkillScale Logo"
+    className="h-50 w-30 object-contain"
+  />
+</div>
+
+      {/* Desktop Menu */}
+      <div className="hidden md:flex items-center space-x-2">
+        {["HOME","GOAL", "FEEDBACK", "APPRAISALPAGE", "REVIEW"].map((path, index) => (
+          <NavLink
+            key={index}
+            to={`/${path}`}
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-md text-sm font-medium transition-colors 
+              ${isActive ? "bg-gradient-to-r from-[#EA033F] to-[#FB5607] text-white shadow-md" : 
+              "bg-transparent text-[#F7F7F7] hover:bg-[#FB5607]/10 hover:text-white"}`
+            }
+          >
+            <button className="w-full h-full uppercase text-white">{path}</button>
+          </NavLink>
+        ))}
+        <div className="relative ml-2">
+          <button
+            onClick={() => setIsProfileOpen(!isProfileOpen)}
+            className="flex items-center focus:outline-none transition-colors hover:bg-[#FB5607]/10 rounded-full p-1"
+          >
+            <img
+              className="h-9 w-9 rounded-full border-2 border-transparent hover:border-[#FB5607] transition-all"
+              src={img}
+              alt="Profile"
+            />
+          </button>
+
+          {/* Dropdown menu */}
+          {isProfileOpen && (
+            <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-xl bg-[#140000] border border-[#EA033F]/20">
+              <div className="py-1">
+                <NavLink 
+                  to="/prof" 
+                  onClick={() => setIsProfileOpen(false)} 
+                  className="no-underline"
+                  style={{ textDecoration: "none" }}
+                >
+                  <button className="block w-full text-left px-4 py-2 text-sm text-[#F7F7F7] hover:bg-[#FB5607]/10">
+                    🧑‍💼 Profile
+                  </button>
+                </NavLink>
+                <NavLink 
+                  to="/login" 
+                  onClick={() => setIsProfileOpen(false)} 
+                  className="no-underline"
+                  style={{ textDecoration: "none" }}
+                >
+                  <button className="block w-full text-left px-4 py-2 text-sm text-[#F7F7F7] hover:bg-[#FB5607]/10">
+                    ⬅️ Logout
+                  </button>
+                </NavLink>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile menu button */}
+      <div className="md:hidden flex items-center">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="inline-flex items-center justify-center p-2 rounded-md text-[#F7F7F7] hover:text-[#FB5607] hover:bg-[#FB5607]/10 focus:outline-none transition-colors"
+        >
+          {isMenuOpen ? <FaTimes className="block h-6 w-6" /> : <FaBars className="block h-6 w-6" />}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {/* Mobile Menu */}
+  <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
+    <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-[#140000] shadow-xl rounded-b-lg border-t border-[#EA033F]/20">
+      {["GOAL", "FEEDBACK", "APPRAISAL", "REVIEW"].map((path, index) => (
+        <NavLink
+          key={index}
+          to={`/${path}`}
+          className={({ isActive }) =>
+            `block px-3 py-3 rounded-md text-base font-medium transition-colors
+            ${isActive ? "bg-gradient-to-r from-[#EA033F] to-[#FB5607] text-white" : 
+            "text-[#F7F7F7] hover:bg-[#FB5607]/10 hover:text-white"}`
+          }
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <button className="w-full h-full uppercase">{path}</button>
+        </NavLink>
+      ))}
+
+      {/* Mobile Profile Dropdown */}
+      <div className="pt-4 pb-2 border-t border-[#EA033F]/20">
+        <div className="flex items-center px-5 py-3">
+          <img className="h-10 w-10 rounded-full border-2 border-[#FB5607]" src={img} alt="Profile" />
+          <div className="ml-3">
+            <div className="text-base font-medium text-[#F7F7F7]">User Profile</div>
+          </div>
+        </div>
+        <div className="mt-1 px-2 space-y-1">
+          <NavLink to="/prof" onClick={() => setIsMenuOpen(false)}
+          className="no-underline"
+          style={{ textDecoration: "none" }}>
+            <button className="block w-full text-left px-3 py-2 text-base font-medium text-[#F7F7F7] hover:bg-[#FB5607]/10 rounded-md">
+              🧑‍💼 Profile
             </button>
-          
-            {/* Dropdown menu */}
-            {isProfileOpen && (
-              <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5">
-                <div className="py-1">
-                  <NavLink 
-                    to="/prof" 
-                    onClick={() => setIsProfileOpen(false)} 
-                    className="no-underline"
-                    style={{ textDecoration: "none" }}
+          </NavLink>
+          <NavLink to="/login" onClick={() => setIsMenuOpen(false)}
+          className="no-underline"
+          style={{ textDecoration: "none" }}>
+            <button className="block w-full text-left px-3 py-2 text-base font-medium text-[#F7F7F7] hover:bg-[#FB5607]/10 rounded-md">
+              ⬅️ Logout
+            </button>
+          </NavLink>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      </nav>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-4xl font-bold text-white mb-12 text-center"
+        >
+          <span class=" text-4xl font-bold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">Self Assessment</span> 
+        </motion.h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Completed Assessments */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-[#0F0F0F] p-6 rounded-xl border border-[#1F1F1F] hover:border-[#EA033F]/50 transition-all duration-300"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+              <span className="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+              Completed Assessments
+            </h2>
+            {completedAssessments.length === 0 ? (
+              <p className="text-gray-500 italic">No assessments completed yet.</p>
+            ) : (
+              <div className="space-y-4">
+                {completedAssessments.map((category, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-[#1A1A1A] p-4 rounded-lg border-l-4 border-green-500 hover:bg-[#252525] transition-all duration-300"
                   >
-                    <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
-                      🧑‍💼 Profile
-                    </button>
-                  </NavLink>
-                  <NavLink 
-                    to="/login" 
-                    onClick={() => setIsProfileOpen(false)} 
-                    className="no-underline"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
-                      ⬅️ Logout
-                    </button>
-                  </NavLink>
-                </div>
+                    <p className="font-semibold text-white">{category}</p>
+                  </div>
+                ))}
               </div>
             )}
-          </div>
-          
-                               </div>
-                     
-                               {/* Mobile menu button */}
-                               <div className="md:hidden flex items-center">
-                                 <button
-                                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                   className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-200 focus:outline-none transition-colors"
-                                 >
-                                   {isMenuOpen ? <FaTimes className="block h-6 w-6" /> : <FaBars className="block h-6 w-6" />}
-                                 </button>
-                               </div>
-                             </div>
-                           </div>
-                     
-                           {/* Mobile Menu */}
-                           <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
-                             <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-white shadow-xl rounded-b-lg">
-                               {["GOAL", "FEEDBACK", "APPRAISAL", "REVIEW"].map((path, index) => (
-                                 <NavLink
-                                   key={index}
-                                   to={`/${path}`}
-                                   className="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200"
-                                   onClick={() => setIsMenuOpen(false)}
-                                 >
-                                   <button className="w-full h-full uppercase">{path}</button>
-                                 </NavLink>
-                               ))}
-                     
-                               {/* Mobile Profile Dropdown */}
-                               <div className="pt-4 pb-2 border-t border-gray-200">
-                                 <div className="flex items-center px-5 py-3">
-                                   <img className="h-10 w-10 rounded-full border-2 border-gray-300" src={img} alt="Profile" />
-                                   <div className="ml-3">
-                                     <div className="text-base font-medium text-gray-800">User Profile</div>
-                                   </div>
-                                 </div>
-                                 <div className="mt-1 px-2 space-y-1">
-                                   <NavLink to="/prof" onClick={() => setIsMenuOpen(false)}
-                                   className="no-underline"
-                                   style={{ textDecoration: "none" }}>
-                                     <button className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200">
-                                       🧑‍💼 Profile
-                                     </button>
-                                   </NavLink>
-                                   <NavLink to="/login" onClick={() => setIsMenuOpen(false)}
-                                   className="no-underline"
-                                   style={{ textDecoration: "none" }}>
-                                     <button className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200">
-                                       ⬅️ Logout
-                                     </button>
-                                   </NavLink>
-                                 </div>
-                               </div>
-                             </div>
-                           </div>
-                         </nav>
-    
-        {/* Main Content */}
-        <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 flex-grow">
-          {/* Completed Assessments */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4 text-green-600">✅ Completed Assessments</h2>
-            {completedAssessments.length === 0 ? (
-              <p className="text-gray-500">No assessments completed yet.</p>
-            ) : (
-              completedAssessments.map((category, index) => (
-                <div key={index} className="p-4 rounded-lg bg-green-100 mb-3">
-                  <p className="font-semibold">{category}</p>
-                </div>
-              ))
-            )}
-          </div>
-    
+          </motion.div>
+
           {/* Pending Assessments */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4 text-yellow-600">📅 Pending Assessments</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-[#0F0F0F] p-6 rounded-xl border border-[#1F1F1F] hover:border-[#EA033F]/50 transition-all duration-300"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+              <span className="w-3 h-3 bg-[#FB5607] rounded-full mr-3"></span>
+              Pending Assessments
+            </h2>
             {pendingAssessments.length === 0 ? (
-              <p className="text-gray-500">No pending assessments.</p>
+              <p className="text-gray-500 italic">No pending assessments.</p>
             ) : (
-              pendingAssessments.map((category, index) => (
-                <div key={index} className="p-4 rounded-lg bg-yellow-100 mb-3">
-                  <p className="font-semibold">{category}</p>
-                  <button
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      fetchQuestions(category);
-                    }}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded-lg text-sm"
+              <div className="space-y-4">
+                {pendingAssessments.map((category, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-[#1A1A1A] p-4 rounded-lg border-l-4 border-[#FB5607] hover:bg-[#252525] transition-all duration-300"
                   >
-                    Attend Assessment
-                  </button>
-                </div>
-              ))
+                    <p className="font-semibold text-white mb-2">{category}</p>
+                    <button
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        fetchQuestions(category);
+                      }}
+                      className="text-xs bg-[#FB5607] hover:bg-[#EA033F] text-white py-1 px-3 rounded transition-colors duration-300"
+                    >
+                      Attend Assessment
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
-          </div>
-    
-          {/* Attend Assessment Section */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4 text-blue-600">📝 Attend Assessment</h2>
+          </motion.div>
+
+          {/* Assessment Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="bg-[#0F0F0F] p-6 rounded-xl border border-[#1F1F1F] hover:border-[#EA033F]/50 transition-all duration-300"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+              <span className="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+              {selectedCategory ? `${selectedCategory} Assessment` : "Assessment Form"}
+            </h2>
+            
             {selectedCategory ? (
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                  Questions for {selectedCategory}
-                </h4>
-                <ul className="divide-y divide-gray-300">
-                  {questions.length === 0 ? (
-                    <p className="text-gray-500">No questions available for this category.</p>
-                  ) : (
-                    questions.map((q) => (
-                      <li key={q._id} className="py-3 px-4 bg-gray-50 rounded-lg shadow-sm mb-2">
-                        <div className="flex flex-col space-y-2">
-                          <span className="text-gray-700">{q.question}</span>
-                          <textarea
-                            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                            placeholder="Enter your answer..."
-                            value={answers[q._id] || ""}
-                            onChange={(e) => handleAnswerChange(q._id, e.target.value)}
-                          />
-                        </div>
-                      </li>
-                    ))
-                  )}
-                </ul>
+              <div className="space-y-4">
+                {questions.length === 0 ? (
+                  <p className="text-gray-500">No questions available for this category.</p>
+                ) : (
+                  questions.map((q) => (
+                    <div 
+                      key={q._id} 
+                      className="bg-[#1A1A1A] p-4 rounded-lg hover:bg-[#252525] transition-all duration-300"
+                    >
+                      <label className="block text-white mb-2">{q.question}</label>
+                      <textarea
+                        className="w-full p-3 bg-[#0F0F0F] border border-[#1F1F1F] rounded-lg focus:border-[#FB5607] focus:ring-1 focus:ring-[#FB5607] text-white"
+                        placeholder="Enter your answer..."
+                        rows="3"
+                        value={answers[q._id] || ""}
+                        onChange={(e) => handleAnswerChange(q._id, e.target.value)}
+                      />
+                    </div>
+                  ))
+                )}
                 <button
                   onClick={handleSaveAnswers}
-                  className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition-all text-lg shadow-md w-full mt-4"
+                  className="w-full bg-gradient-to-r from-[#EA033F] to-[#FB5607] text-white font-semibold py-3 px-6 rounded-lg transition-all hover:shadow-lg hover:shadow-[#EA033F]/30 mt-4"
                 >
                   Save Answers
                 </button>
               </div>
             ) : (
-              <p className="text-gray-500">Select a category to attend the assessment.</p>
+              <p className="text-gray-500">Select a category to begin assessment.</p>
             )}
-          </div>
+          </motion.div>
         </div>
-    
-        {/* Footer */}
-        <footer className="bg-gray-900 text-white py-2 items-center">
-          <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-            {/* Company Info */}
-            <div>
-              <h2 className="text-lg font-bold">SkillScale</h2>
-              <p className="mt-2 text-gray-400">Empowering growth through continuous performance tracking.</p>
-            </div>
-    
-            {/* Quick Links */}
-            <div className="mb-6 items-center">
-              <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-              <ul className="space-y-2">
-                <li className="flex items-center">
-                  <FaEnvelope className="mr-2" />
-                  info@skillscale.com
-                </li>
-                <li className="flex items-center">
-                  <FaPhone className="mr-2" />
-                  6282645889
-                </li>
-                <li className="flex items-center">
-                  <span className="mr-2">📍</span>
-                  <span>CyberPark, Kozhikode, India</span>
-                </li>
-              </ul>
-            </div>
-    
-            {/* Contact & Social */}
-            <div className="items-center">
-              <h3 className="text-lg font-semibold">Connect With Us</h3>
-              <div className="mt-6 flex space-x-4 items-center">
-                <a href="https://facebook.com" className="text-gray-400 hover:text-white items-center"><FaFacebook size={20} /></a>
-                <a href="https://twitter.com" className="text-gray-400 hover:text-white"><FaTwitter size={20} /></a>
-                <a href="https://linkedin.com" className="text-gray-400 hover:text-white"><FaLinkedin size={20} /></a>
-                <a href="mailto:info@skillscale.com" className="text-gray-400 hover:text-white"><FaEnvelope size={20} /></a>
-              </div>
-            </div>
-          </div>
-    
-          {/* Copyright */}
-          <div className=" text-center text-gray-500 text-sm border-t border-gray-600 text-center">
-            &copy; 2025 SkillScale. All Rights Reserved.
-          </div>
-        </footer>
       </div>
+
+      {/* Footer (same as homepage) */}
+      <footer className="bg-[#140000] text-[#F7F7F7] py-8">
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+    {/* Company Info */}
+    <div className="space-y-4">
+      <div className="flex items-center">
+        <img
+          src={logo}
+          alt="SkillScale Logo"
+          className="h-50 w-30 object-contain"
+        />
+      </div>
+      <p className="text-[#F7F7F7]/80">
+        Empowering growth through continuous performance tracking.
+      </p>
+      <div className="flex space-x-4 md:hidden">
+        <a href="https://facebook.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+          <FaFacebook size={20} />
+        </a>
+        <a href="https://twitter.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+          <FaTwitter size={20} />
+        </a>
+        <a href="https://linkedin.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+          <FaLinkedin size={20} />
+        </a>
+      </div>
+    </div>
+
+    {/* Contact Info */}
+    <div className="space-y-4">
+      <h4 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+        Contact Us
+      </h4>
+      <ul className="space-y-3">
+        <li className="flex items-start">
+          <FaEnvelope className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+          
+            info@skillscale.com
+          
+        </li>
+        <li className="flex items-start">
+          <FaPhone className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+         
+            +91 6282645889
+          
+        </li>
+        <li className="flex items-start">
+          <FaMapMarkerAlt className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+          <span>CyberPark, Kozhikode, India</span>
+        </li>
+      </ul>
+    </div>
+
+    {/* Social Links */}
+    <div className="space-y-4">
+      <h3 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+        Connect With Us
+      </h3>
+      <div className="flex space-x-6">
+        <a href="https://facebook.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+          <FaFacebook size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+        </a>
+        <a href="https://twitter.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+          <FaTwitter size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+        </a>
+        <a href="https://linkedin.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+          <FaLinkedin size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+        </a>
+        <a href="mailto:info@skillscale.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+          <FaEnvelope size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  {/* Copyright */}
+  <div className="mt-8 pt-6 border-t border-[#EA033F]/10 text-center text-[#F7F7F7]/60 text-sm">
+    &copy; {new Date().getFullYear()} SkillScale. All Rights Reserved.
+  </div>
+</footer>
     </div>
   );
 };

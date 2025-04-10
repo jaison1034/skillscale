@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import  { Building } from "lucide-react";
 import { FcBusinessman } from "react-icons/fc";
 import axiosInstance from "../../axiosInstance";
+import logo from "../../assets/logo.webp";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -110,177 +111,188 @@ const Registration = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${img})`,
-        filter: "brightness(1.0)",
-      }}
-    >
-      <div className="absolute top-6 left-6 flex items-center space-x-2 z-10 ml-30">
-        <FaChartLine className="text-blue-600 text-3xl" />
-        <h1 className="text-3xl font-bold text-white ml-2">SkillScale</h1>
-      </div>
-
-      <div className="relative z-10 w-full max-w-md p-8 bg-white bg-opacity-80 rounded-xl shadow-xl text-left mt-20 ml-200">
-        <h2 className="text-2xl font-semibold text-[#3674B5] mb-6 text-center">Register</h2>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Full Name Field */}
-          <div className="relative">
-            <label className="block text-[#3674B5] font-medium mb-2">Full Name</label>
-            <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3674B5]" />
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Enter your full name"
-                className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3674B5] transition-all"
-                required
-              />
-            </div>
-            {errors.fullName && (
-              <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
-            )}
-          </div>
-
-          {/* Email Field */}
-          <div className="relative">
-            <label className="block text-[#3674B5] font-medium mb-2">Email Address</label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3674B5]" />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-                className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3674B5] transition-all"
-                required
-              />
-            </div>
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-            )}
-          </div>
-
-          {/* Password Field */}
-          <div className="relative">
-            <label className="block text-[#3674B5] font-medium mb-2">Password</label>
-            <div className="relative">
-              <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3674B5]" />
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3674B5] transition-all"
-                required
-              />
-            </div>
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-            )}
-          </div>
-
-          {/* Confirm Password Field */}
-          <div className="relative">
-            <label className="block text-[#3674B5] font-medium mb-2">Confirm Password</label>
-            <div className="relative">
-              <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3674B5]" />
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm your password"
-                className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3674B5] transition-all"
-                required
-              />
-            </div>
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
-            )}
-          </div>
-
-          {/* Role Field */}
-          <div className="relative">
-            <label className="block text-[#3674B5] font-medium mb-2">Role</label>
-            <div className="relative">
-              <FaChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#3674B5]" />
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3674B5] transition-all appearance-none"
-                required
-              >
-                <option value="">Select a role</option>
-                <option value="employee">Employee</option>
-                <option value="manager">Manager</option>
-              </select>
-            </div>
-            {errors.role && (
-              <p className="text-red-500 text-sm mt-1">{errors.role}</p>
-            )}
-          </div>
-          {/* Department Field (Now for both Employee & Manager) */}
-<div className="relative">
-  <label className="block text-[#3674B5] font-medium mb-2">Department</label>
-  <div className="relative">
-    <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3674B5]" />
-    <input
-      type="text"
-      name="department"
-      value={formData.department}
-      onChange={handleChange}
-      placeholder="Enter your department"
-      className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3674B5] transition-all"
-      required
+    className="min-h-screen flex items-center justify-center relative bg-cover bg-center"
+    style={{
+      backgroundImage: `url(${img})`,
+      filter: "brightness(1.0)",
+    }}
+  >
+    <div className="absolute top-6 left-6">
+    <img
+      src={logo}
+      alt="SkillScale Logo"
+      className="h-50 w-30  object-contain"
     />
   </div>
-  {errors.department && (
-    <p className="text-red-500 text-sm mt-1">{errors.department}</p>
-  )}
-</div>
-<div className="relative">
-  <label className="block text-[#3674B5] font-medium mb-2">Position </label>
-  <div className="relative">
-  <FcBusinessman className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3674B5]" />
-    <input
-      type="text"
-      name="position"
-      value={formData.position}
-      onChange={handleChange}
-      placeholder="Enter your Position"
-      className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3674B5] transition-all"
-      required
-    />
-  </div>
-  {errors.position && (
-    <p className="text-red-500 text-sm mt-1">{errors.position}</p>
-  )}
-</div>
-
-          <button
-            type="submit"
-            className="w-full bg-[#3674B5] text-white py-3 rounded-lg hover:bg-[#285a8d] transition-all"
-          >
-            Register
-          </button>
-        </form>
-
-        {/* Login Link */}
-        <p className="text-center mt-6 text-[#3674B5]">
-          Already have an account?{" "}
-          <Link to="/login" className="font-semibold underline hover:text-[#285a8d] transition-all">
-            Login here
-          </Link>
-        </p>
-      </div>
+  
+    {/* Registration Card */}
+    <div className="relative z-10 w-full max-w-md p-8 bg-[#F7F7F7] bg-opacity-90 rounded-xl shadow-xl text-left mt-20">
+      <h2 className="text-2xl font-semibold text-[#EA033F] mb-6 text-center">Register</h2>
+  
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Full Name */}
+        <div className="relative">
+          <label className="block text-[#140000] font-medium mb-2">Full Name</label>
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FB5607]" />
+            <input
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              placeholder="Enter your full name"
+              className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all"
+              required
+            />
+          </div>
+          {errors.fullName && (
+            <p className="text-[#EA033F] text-sm mt-1">{errors.fullName}</p>
+          )}
+        </div>
+  
+        {/* Email */}
+        <div className="relative">
+          <label className="block text-[#140000] font-medium mb-2">Email Address</label>
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FB5607]" />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all"
+              required
+            />
+          </div>
+          {errors.email && (
+            <p className="text-[#EA033F] text-sm mt-1">{errors.email}</p>
+          )}
+        </div>
+  
+        {/* Password */}
+        <div className="relative">
+          <label className="block text-[#140000] font-medium mb-2">Password</label>
+          <div className="relative">
+            <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FB5607]" />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all"
+              required
+            />
+          </div>
+          {errors.password && (
+            <p className="text-[#EA033F] text-sm mt-1">{errors.password}</p>
+          )}
+        </div>
+  
+        {/* Confirm Password */}
+        <div className="relative">
+          <label className="block text-[#140000] font-medium mb-2">Confirm Password</label>
+          <div className="relative">
+            <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FB5607]" />
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm your password"
+              className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all"
+              required
+            />
+          </div>
+          {errors.confirmPassword && (
+            <p className="text-[#EA033F] text-sm mt-1">{errors.confirmPassword}</p>
+          )}
+        </div>
+  
+        {/* Role */}
+        <div className="relative">
+          <label className="block text-[#140000] font-medium mb-2">Role</label>
+          <div className="relative">
+            <FaChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FB5607]" />
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all appearance-none"
+              required
+            >
+              <option value="">Select a role</option>
+              <option value="employee">Employee</option>
+              <option value="manager">Manager</option>
+            </select>
+          </div>
+          {errors.role && (
+            <p className="text-[#EA033F] text-sm mt-1">{errors.role}</p>
+          )}
+        </div>
+  
+        {/* Department */}
+        <div className="relative">
+          <label className="block text-[#140000] font-medium mb-2">Department</label>
+          <div className="relative">
+            <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FB5607]" />
+            <input
+              type="text"
+              name="department"
+              value={formData.department}
+              onChange={handleChange}
+              placeholder="Enter your department"
+              className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all"
+              required
+            />
+          </div>
+          {errors.department && (
+            <p className="text-[#EA033F] text-sm mt-1">{errors.department}</p>
+          )}
+        </div>
+  
+        {/* Position */}
+        <div className="relative">
+          <label className="block text-[#140000] font-medium mb-2">Position</label>
+          <div className="relative">
+            <FcBusinessman className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FB5607]" />
+            <input
+              type="text"
+              name="position"
+              value={formData.position}
+              onChange={handleChange}
+              placeholder="Enter your Position"
+              className="w-full px-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EA033F] transition-all"
+              required
+            />
+          </div>
+          {errors.position && (
+            <p className="text-[#EA033F] text-sm mt-1">{errors.position}</p>
+          )}
+        </div>
+  
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-[#EA033F] text-white py-3 rounded-lg hover:bg-[#c20234] transition-all"
+        >
+          Register
+        </button>
+      </form>
+  
+      {/* Login Link */}
+      <p className="text-center mt-6 text-[#140000]">
+        Already have an account?{" "}
+        <Link
+          to="/login"
+          className="font-semibold underline hover:text-[#EA033F] transition-all"
+        >
+          Login here
+        </Link>
+      </p>
     </div>
+  </div>
   );
 };
 
