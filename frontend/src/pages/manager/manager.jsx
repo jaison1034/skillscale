@@ -74,11 +74,12 @@ const AdminDashboard = () => {
                 🧑‍💼 Profile
               </NavDropdown.Item>
               <NavDropdown.Item 
-                href="/login" 
-                className="text-[#140000] hover:bg-[#FB5607]/10"
-              >
-                ⬅️ Logout
-              </NavDropdown.Item>
+  onClick={() => navigate('/login')} 
+  className="hover:bg-[#FB5607]/10 text-white cursor-pointer"
+  style={{ backgroundColor: 'black' }}
+>
+  <span className="text-white">⬅️ Logout</span>
+</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>
