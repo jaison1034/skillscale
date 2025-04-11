@@ -61,26 +61,38 @@ const AdminDashboard = () => {
     
           {/* Profile Dropdown */}
           <Nav>
-            <NavDropdown 
-              title={<img src={img} alt="Profile" className="rounded-full border-2 border-transparent hover:border-[#FB5607] transition-all" width="40" height="40" />} 
-              id="basic-nav-dropdown" 
-              align="end"
-              className="bg-[#140000]"
-            >
-              <NavDropdown.Item 
-                href="#profile" 
-                className="text-[#140000] hover:bg-[#FB5607]/10"
-              >
-                🧑‍💼 Profile
-              </NavDropdown.Item>
-              <NavDropdown.Item 
-  onClick={() => navigate('/login')} 
-  className="hover:bg-[#FB5607]/10 text-white cursor-pointer"
-  style={{ backgroundColor: 'black' }}
->
-  <span className="text-white">⬅️ Logout</span>
-</NavDropdown.Item>
-            </NavDropdown>
+           <NavDropdown 
+               title={
+                 <img 
+                   src={img} 
+                   alt="Profile" 
+                   className="rounded-full border-2 border-[#FB5607]" 
+                   width="40" 
+                   height="40" 
+                 />
+               } 
+               id="basic-nav-dropdown" 
+               align="end"
+               className="text-white"
+               menuVariant="dark" // Applies dark Bootstrap styling
+               style={{ backgroundColor: 'black' }} // For outer dropdown styling
+             >
+               <NavDropdown.Item 
+                 href="#profile" 
+                 className="hover:bg-[#FB5607]/10 text-white"
+                 style={{ backgroundColor: 'black' }}
+               >
+                 <span className="text-white">🧑‍💼 Profile</span>
+               </NavDropdown.Item>
+           
+           <NavDropdown.Item 
+             onClick={() => navigate('/login')} 
+             className="hover:bg-[#FB5607]/10 text-white cursor-pointer"
+             style={{ backgroundColor: 'black' }}
+           >
+             <span className="text-white">⬅️ Logout</span>
+           </NavDropdown.Item>
+             </NavDropdown>
           </Nav>
         </Container>
       </Navbar>
@@ -90,7 +102,7 @@ const AdminDashboard = () => {
         <div className={`fixed lg:relative top-0 left-0 w-64 bg-[#140000] text-[#F7F7F7] p-4 transition-transform transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:block h-full lg:h-auto z-50 border-r border-[#EA033F]/20`}>
-          <h2 className="text-xl font-bold mb-6 text-[#FB5607] border-b border-[#EA033F]/30 pb-3">Manager Panel</h2>
+          <h2 className="text-xl font-bold mb-6 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-3">Manager Panel</h2>
           <nav className="flex flex-col space-y-2">
             {menuItems.map((item) => (
               <button
@@ -113,7 +125,7 @@ const AdminDashboard = () => {
     
         {/* Content Area */}
         <div className="flex-1 p-6 backdrop-blur-sm">
-          <p className="text-4xl text-left text-white mb-6 font-bold drop-shadow-lg">Manager Dashboard</p>
+          <p className="text-4xl text-left bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text mb-6 font-bold drop-shadow-lg">Manager Dashboard</p>
           <div className="backdrop-blur-lg bg-[#140000]/60 rounded-lg shadow-xl p-6 border border-[#EA033F]/20">
             <Outlet />
           </div>
@@ -134,22 +146,12 @@ const AdminDashboard = () => {
             <p className="text-[#F7F7F7]/80">
               Empowering growth through continuous performance tracking.
             </p>
-            <div className="flex space-x-4 md:hidden">
-              <a href="https://facebook.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
-                <FaFacebook size={20} />
-              </a>
-              <a href="https://twitter.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
-                <FaTwitter size={20} />
-              </a>
-              <a href="https://linkedin.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
-                <FaLinkedin size={20} />
-              </a>
-            </div>
+          
           </div>
       
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+            <h4 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
               Contact Us
             </h4>
             <ul className="space-y-3">
@@ -170,7 +172,7 @@ const AdminDashboard = () => {
       
           {/* Social Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
               Connect With Us
             </h3>
             <div className="flex space-x-6">

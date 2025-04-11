@@ -170,7 +170,7 @@ const AppraisalPage = () => {
           className={({ isActive }) =>
             `block px-3 py-3 rounded-md text-base font-medium transition-colors
             ${isActive ? "bg-gradient-to-r from-[#EA033F] to-[#FB5607] text-white" : 
-            "text-[#F7F7F7] hover:bg-[#FB5607]/10 hover:text-white"}`
+            "text-white hover:bg-[#FB5607]/10 hover:text-white"}`
           }
           onClick={() => setIsMenuOpen(false)}
         >
@@ -402,22 +402,12 @@ const AppraisalPage = () => {
       <p className="text-[#F7F7F7]/80">
         Empowering growth through continuous performance tracking.
       </p>
-      <div className="flex space-x-4 md:hidden">
-        <a href="https://facebook.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
-          <FaFacebook size={20} />
-        </a>
-        <a href="https://twitter.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
-          <FaTwitter size={20} />
-        </a>
-        <a href="https://linkedin.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
-          <FaLinkedin size={20} />
-        </a>
-      </div>
+     
     </div>
 
     {/* Contact Info */}
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+      <h4 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
         Contact Us
       </h4>
       <ul className="space-y-3">
@@ -442,7 +432,7 @@ const AppraisalPage = () => {
 
     {/* Social Links */}
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
+      <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
         Connect With Us
       </h3>
       <div className="flex space-x-6">
