@@ -27,7 +27,9 @@ const AppraisalPage = () => {
 
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/employees/${user.id}`);
+        const response = await axios.get(`https://skillscale-sqip.onrender.com/api/employees/${user.id}`, {
+          withCredentials: true
+        });
         setEmployeeData(response.data);
       } catch (err) {
         setEmployeeData({

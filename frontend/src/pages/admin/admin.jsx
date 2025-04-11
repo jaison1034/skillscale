@@ -82,7 +82,6 @@ const AdminDashboard = () => {
       <span className="text-white">🧑‍💼 Profile</span>
     </NavDropdown.Item>
 
-    // Change this in your NavDropdown.Item
 <NavDropdown.Item 
   onClick={() => navigate('/login')} 
   className="hover:bg-[#FB5607]/10 text-white cursor-pointer"
