@@ -74,7 +74,7 @@ const PerformanceDashboard = () => {
     setError(null);
     
     try {
-      const response = await fetch('http://localhost:5000/api/performance/dashboard');
+      const response = await fetch('https://skillscale-sqip.onrender.com/api/performance/dashboard');
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
