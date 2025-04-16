@@ -18,7 +18,7 @@ import AttendanceM from "./pages/manager/attendance_manager";
 import EmpV from "./pages/admin/employee_view";
 import MaR from "./pages/manager/manager_review";
 import MeV from "./pages/manager/Manager_empV";
-import Pro from "./pages/profile";
+import Pro from "./pages/profilepage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from '../src/context/UserContext';

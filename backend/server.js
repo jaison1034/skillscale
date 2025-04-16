@@ -16,6 +16,8 @@ const performanceDashboardRoutes = require('./routes/performanceDashboard.js');
 const performanceRoutes = require('./routes/performanceRoutes');
 const appraisalRoutes = require('./routes/AppraisalRoute.js');
 const employeePerformanceRoutes = require('./routes/employeePerformanceRoutes.js');
+const profileRoutes = require('./routes/profile');
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -72,7 +74,7 @@ app.use('/api/dashboard', performanceDashboardRoutes);
 app.use('/api/performance', performanceRoutes);
 app.use('/api/employees', appraisalRoutes);
 app.use('/api/employee-performance', employeePerformanceRoutes);
-
+app.use('/api/profile', profileRoutes);
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
