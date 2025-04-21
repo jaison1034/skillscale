@@ -132,71 +132,75 @@ const AdminDashboard = () => {
         </div>
       </div>
     
-      <footer className="bg-[#140000]  py-8 border-t border-[#EA033F]/30">
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center">
-              <img
-                src={logo}
-                alt="SkillScale Logo"
-                className="h-50 w-30 object-contain"
-              />
-            </div>
-            <p className="text-[#F7F7F7]/80">
-              Empowering growth through continuous performance tracking.
-            </p>
+ <footer className="bg-[#140000] text-[#F7F7F7] py-8">
+   <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+     {/* Company Info */}
+     <div className="space-y-4">
+       <div className="flex items-center">
+         <img
+           src={logo}
+           alt="SkillScale Logo"
+           className="h-50 w-30 object-contain"
+         />
+       </div>
+       <p className="text-[#F7F7F7]/80">
+         Empowering growth through continuous performance tracking.
+       </p>
+       
+     </div>
+ 
+     {/* Contact Info */}
+     <div className="space-y-4">
+       <h4 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
+         Contact Us
+       </h4>
+       <ul className="space-y-3">
+         <li className="flex items-start">
+           <FaEnvelope className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+           
+             info@skillscale.com
+           
+         </li>
+         <li className="flex items-start">
+           <FaPhone className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
           
-          </div>
-      
-          {/* Contact Info */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
-              Contact Us
-            </h4>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <FaEnvelope className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
-                info@skillscale.com
-              </li>
-              <li className="flex items-start">
-                <FaPhone className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
-                +91 6282645889
-              </li>
-              <li className="flex items-start">
-                <FaMapMarkerAlt className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
-                <span>CyberPark, Kozhikode, India</span>
-              </li>
-            </ul>
-          </div>
-      
-          {/* Social Links */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
-              Connect With Us
-            </h3>
-            <div className="flex space-x-6">
-              <a href="https://facebook.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
-                <FaFacebook size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
-              </a>
-              <a href="https://twitter.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
-                <FaTwitter size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
-              </a>
-              <a href="https://linkedin.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
-                <FaLinkedin size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
-              </a>
-              <a href="mailto:info@skillscale.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
-                <FaEnvelope size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-[#EA033F]/10 text-center text-[#F7F7F7]/60 text-sm">
-          &copy; {new Date().getFullYear()} SkillScale. All Rights Reserved.
-        </div>
-      </footer>
+             +91 6282645889
+           
+         </li>
+         <li className="flex items-start">
+           <FaMapMarkerAlt className="text-[#FB5607] mt-1 mr-3 flex-shrink-0" />
+           <span>CyberPark, Kozhikode, India</span>
+         </li>
+       </ul>
+     </div>
+ 
+     {/* Social Links */}
+     <div className="space-y-4">
+       <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
+         Connect With Us
+       </h3>
+       <div className="flex space-x-6">
+         <a href="https://facebook.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+           <FaFacebook size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+         </a>
+         <a href="https://twitter.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+           <FaTwitter size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+         </a>
+         <a href="https://linkedin.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+           <FaLinkedin size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+         </a>
+         <a href="mailto:info@skillscale.com" className="bg-[#140000] p-2 rounded-full border border-[#EA033F]/20 hover:bg-[#EA033F]/10 hover:border-[#EA033F]/50 transition-all">
+           <FaEnvelope size={20} className="text-[#F7F7F7] hover:text-[#EA033F]" />
+         </a>
+       </div>
+     </div>
+   </div>
+   
+   {/* Copyright */}
+   <div className="mt-8 pt-6 border-t border-[#EA033F]/10 text-center text-[#F7F7F7]/60 text-sm">
+     &copy; {new Date().getFullYear()} SkillScale. All Rights Reserved.
+   </div>
+ </footer>
     </div>
     
     
