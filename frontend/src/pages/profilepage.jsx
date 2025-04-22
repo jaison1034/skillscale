@@ -38,7 +38,6 @@ const ProfilePage = () => {
   
     fetchProfile();
   }, [user, image]);
-
   const handleImageUpload = async () => {
     if (!image) {
       alert('Please select an image first');
@@ -54,18 +53,30 @@ const ProfilePage = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        // Add timeout
+        timeout: 30000 // 30 seconds
       });
+      
+      // Force refresh the image by adding timestamp
+      const timestamp = new Date().getTime();
+      const updatedImageUrl = `${res.data.profilePicture}?${timestamp}`;
       
       setEmployee(prev => ({ 
         ...prev, 
-        profilePicture: res.data.profilePicture 
+        profilePicture: updatedImageUrl 
       }));
       
-      // Clear the file input
       setImage(null);
+      alert('Profile picture updated successfully!');
     } catch (err) {
       console.error('Error uploading image:', err);
-      alert(err.response?.data?.message || 'Failed to upload image');
+      let errorMessage = 'Failed to upload image';
+      if (err.response) {
+        errorMessage = err.response.data.message || errorMessage;
+      } else if (err.request) {
+        errorMessage = 'Network error - please check your connection';
+      }
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
