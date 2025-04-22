@@ -38,58 +38,38 @@ const ProfilePage = () => {
   
     fetchProfile();
   }, [user, image]);
-  // Fetch profile
-const fetchProfile = async () => {
-  if (user?.id) {
-    try {
-      const response = await axiosInstance.get(`/api/profile/${user.id}`);
-      const profileData = response.data;
-      // ... rest of your code
-    } catch (err) {
-      console.error("Error fetching profile:", err);
-      // Add user-friendly error message
-      alert('Failed to load profile. Please try again later.');
+
+  const handleImageUpload = async () => {
+    if (!image) {
+      alert('Please select an image first');
+      return;
     }
-  }
-};
-
-// Image upload
-const handleImageUpload = async () => {
-  if (!image) {
-    alert('Please select an image first');
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('image', image);
-
-  setLoading(true);
-  try {
-    const res = await axiosInstance.put(
-      `/api/profile/${user.id}/upload`,
-      formData,
-      {
+  
+    const formData = new FormData();
+    formData.append('image', image);
+  
+    setLoading(true);
+    try {
+      const res = await axiosInstance.put(`/profile/${user.id}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }
-    );
-    
-    // Update state
-    setEmployee(prev => ({ 
-      ...prev, 
-      profilePicture: res.data.profilePicture 
-    }));
-    
-    setImage(null);
-    alert('Profile picture updated successfully!');
-  } catch (err) {
-    console.error('Upload error:', err);
-    alert(err.response?.data?.message || 'Failed to upload image');
-  } finally {
-    setLoading(false);
-  }
-};
+      });
+      
+      setEmployee(prev => ({ 
+        ...prev, 
+        profilePicture: res.data.profilePicture 
+      }));
+      
+      // Clear the file input
+      setImage(null);
+    } catch (err) {
+      console.error('Error uploading image:', err);
+      alert(err.response?.data?.message || 'Failed to upload image');
+    } finally {
+      setLoading(false);
+    }
+  };
   if (!employee) return (
     <div className="min-h-screen bg-gradient-to-br from-[#0F0E17] to-[#1A1B2F] flex items-center justify-center">
       <div className="animate-pulse text-xl text-white">Loading profile...</div>
