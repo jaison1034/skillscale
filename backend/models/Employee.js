@@ -26,6 +26,10 @@ const EmployeeSchema = new mongoose.Schema({
   attendance: { 
     present: { type: Number, default: 0 },
     total: { type: Number, default: 0 }
+  },
+  profilePicture: {
+    type: String,
+    default: ''
   }
 });
 

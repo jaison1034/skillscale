@@ -1,27 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const cloudinary = require('cloudinary').v2;
+const multer = require('../utils/cloudinary'); // Import the configured multer instance
 const Employee = require('../models/Employee');
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'skillscale-profiles',
-    allowed_formats: ['jpg', 'jpeg', 'png'],
-    transformation: [{ width: 500, height: 500, crop: 'limit' }],
-  },
-});
-
-const upload = multer({ storage: storage });
 
 // Get logged-in user details
 router.get('/:id', async (req, res) => {
@@ -33,19 +13,32 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
 // Upload profile image
-router.put('/:id/upload', upload.single('image'), async (req, res) => {
+router.put('/:id/upload', multer.single('image'), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
     const employee = await Employee.findById(req.params.id);
     if (!employee) return res.status(404).json({ message: 'Employee not found' });
 
-    employee.profilePicture = req.file.path;
+    // Get secure HTTPS URL from Cloudinary
+    const secureUrl = req.file.path.replace('http://', 'https://');
+    
+    employee.profilePicture = secureUrl;
     await employee.save();
 
-    res.json({ message: 'Image uploaded', profilePicture: employee.profilePicture });
+    res.json({ 
+      message: 'Image uploaded successfully',
+      profilePicture: secureUrl // Return the secure URL
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Error uploading image:', err);
+    res.status(500).json({ 
+      message: 'Error uploading image',
+      error: err.message 
+    });
   }
 });
 

@@ -20,35 +20,56 @@ const ProfilePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (user?.id) {
-      axiosInstance
-        .get(`/profile/${user.id}`)
-        .then((res) => setEmployee(res.data))
-        .catch((err) => console.error("Error fetching profile:", err));
-    }
-  }, [user]);
+    const fetchProfile = async () => {
+      if (user?.id) {
+        try {
+          const response = await axiosInstance.get(`/profile/${user.id}`);
+          // Ensure the profile picture URL is secure (HTTPS)
+          const profileData = response.data;
+          if (profileData.profilePicture && profileData.profilePicture.startsWith('http://')) {
+            profileData.profilePicture = profileData.profilePicture.replace('http://', 'https://');
+          }
+          setEmployee(profileData);
+        } catch (err) {
+          console.error("Error fetching profile:", err);
+        }
+      }
+    };
+  
+    fetchProfile();
+  }, [user, image]);
 
   const handleImageUpload = async () => {
-    if (!image) return;
-
+    if (!image) {
+      alert('Please select an image first');
+      return;
+    }
+  
     const formData = new FormData();
-    formData.append("image", image);
-
+    formData.append('image', image);
+  
     setLoading(true);
     try {
       const res = await axiosInstance.put(`/profile/${user.id}/upload`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
-      setEmployee((prev) => ({ ...prev, profilePicture: res.data.profilePicture }));
+      
+      setEmployee(prev => ({ 
+        ...prev, 
+        profilePicture: res.data.profilePicture 
+      }));
+      
+      // Clear the file input
+      setImage(null);
     } catch (err) {
-      console.error("Error uploading image:", err);
+      console.error('Error uploading image:', err);
+      alert(err.response?.data?.message || 'Failed to upload image');
     } finally {
       setLoading(false);
     }
   };
-
   if (!employee) return (
     <div className="min-h-screen bg-gradient-to-br from-[#0F0E17] to-[#1A1B2F] flex items-center justify-center">
       <div className="animate-pulse text-xl text-white">Loading profile...</div>
@@ -198,11 +219,16 @@ const ProfilePage = () => {
               {/* Profile Picture Section */}
               <div className="flex flex-col items-center space-y-6">
                 <div className="relative group">
-                  <img
-                    src={employee.profilePicture || `https://ui-avatars.com/api/?name=${encodeURIComponent(employee.name)}&background=EA033F&color=fff&size=256`}
-                    alt="Profile"
-                    className="w-44 h-44 sm:w-52 sm:h-52 rounded-full object-cover border-4 border-[#FB5607] shadow-lg transition-all duration-300 group-hover:scale-105"
-                  />
+                <img
+  src={employee.profilePicture 
+    ? employee.profilePicture.replace('http://', 'https://') 
+    : `https://ui-avatars.com/api/?name=${encodeURIComponent(employee.name)}&background=EA033F&color=fff&size=256`}
+  alt="Profile"
+  className="w-44 h-44 sm:w-52 sm:h-52 rounded-full object-cover border-4 border-[#FB5607] shadow-lg transition-all duration-300 group-hover:scale-105"
+  onError={(e) => {
+    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(employee.name)}&background=EA033F&color=fff&size=256`;
+  }}
+/>
                   <div className="absolute inset-0 rounded-full bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <label className="cursor-pointer p-3 bg-[#EA033F] rounded-full hover:bg-[#FB5607] transition-colors">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
