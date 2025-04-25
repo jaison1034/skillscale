@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const SelfAssessment = require("../models/selfAssessment");
+const Employee = require("../models/Employee");
 
 // Add questions under a category
 router.post("/add-question", async (req, res) => {
@@ -56,6 +57,16 @@ router.post("/save-answer/:questionId", async (req, res) => {
     question.completedBy.push({ userId }); // Mark the user as completed
     await question.save();
 
+    // Update employee's assessment completion status
+    await Employee.findByIdAndUpdate(
+      userId,
+      { 
+        hasCompletedSelfAssessment: true,
+        lastAssessmentCompletionDate: new Date(),
+        $inc: { assessmentsCompleted: 1 }
+      }
+    );
+
     res.status(200).json({ message: "Answer saved successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
@@ -87,6 +98,7 @@ router.get("/get-pending-assessments/:userId", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 router.get("/get-categories-count", async (req, res) => {
   try {
     const count = await SelfAssessment.distinct("category").then((categories) => categories.length);
@@ -106,4 +118,5 @@ router.delete("/delete-question/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 module.exports = router;

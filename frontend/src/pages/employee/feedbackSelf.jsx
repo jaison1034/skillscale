@@ -91,7 +91,7 @@ const fetchCategories = async () => {
 
     try {
       for (const questionId in answers) {
-        await axios.post(`http://localhost:5000/api/self-assessment/save-answer/${questionId}`, {
+        await axiosInstance.post(`/self-assessment/save-answer/${questionId}`, {
           userId: user.id,
           answer: answers[questionId],
         });
@@ -200,7 +200,7 @@ const fetchCategories = async () => {
   {/* Mobile Menu */}
   <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
     <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-[#140000] shadow-xl rounded-b-lg border-t border-[#EA033F]/20">
-      {["GOAL", "FEEDBACK", "APPRAISAL", "REVIEW"].map((path, index) => (
+      {["GOAL", "FEEDBACK", "APPRAISALPAGE", "REVIEW"].map((path, index) => (
         <NavLink
           key={index}
           to={`/${path}`}
@@ -382,12 +382,22 @@ const fetchCategories = async () => {
       <p className="text-[#F7F7F7]/80">
         Empowering growth through continuous performance tracking.
       </p>
-     
+      <div className="flex space-x-4 md:hidden">
+        <a href="https://facebook.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+          <FaFacebook size={20} />
+        </a>
+        <a href="https://twitter.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+          <FaTwitter size={20} />
+        </a>
+        <a href="https://linkedin.com" className="text-[#F7F7F7]/70 hover:text-[#EA033F] transition-colors">
+          <FaLinkedin size={20} />
+        </a>
+      </div>
     </div>
 
     {/* Contact Info */}
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
+      <h4 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
         Contact Us
       </h4>
       <ul className="space-y-3">
@@ -412,7 +422,7 @@ const fetchCategories = async () => {
 
     {/* Social Links */}
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
+      <h3 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
         Connect With Us
       </h3>
       <div className="flex space-x-6">

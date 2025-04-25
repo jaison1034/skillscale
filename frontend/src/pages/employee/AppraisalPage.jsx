@@ -10,6 +10,7 @@ import {
 import { FaMapMarkerAlt } from "react-icons/fa";
 import img from '../../assets/images.png';
 import logo from "../../assets/logo.webp";
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const AppraisalPage = () => {
   const { user } = useUser();
@@ -27,9 +28,7 @@ const AppraisalPage = () => {
 
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get(`https://skillscale-sqip.onrender.com/api/employees/${user.id}`, {
-          withCredentials: true
-        });
+        const response = await axios.get(`http://localhost:5000/api/employees/${user.id}`);
         setEmployeeData(response.data);
       } catch (err) {
         setEmployeeData({
@@ -163,7 +162,7 @@ const AppraisalPage = () => {
   {/* Mobile Menu */}
   <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
     <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-[#140000] shadow-xl rounded-b-lg border-t border-[#EA033F]/20">
-      {["GOAL", "FEEDBACK", "APPRAISAL", "REVIEW"].map((path, index) => (
+      {["GOAL", "FEEDBACK", "APPRAISALPAGE", "REVIEW"].map((path, index) => (
         <NavLink
           key={index}
           to={`/${path}`}
@@ -248,7 +247,7 @@ const AppraisalPage = () => {
               </div>
               <div className="bg-[#140000]/30 rounded-lg px-4 py-2">
                 <span className="text-sm text-white">Appraisal Period:</span>
-                <span className="ml-2 font-medium text-white">Jan 2024 - Dec 2024</span>
+                <span className="ml-2 font-medium text-white">Jan 2025 - Apr 2025</span>
               </div>
             </div>
           </div>
@@ -353,6 +352,40 @@ const AppraisalPage = () => {
                 </div>
               </motion.div>
             </div>
+            <motion.div
+    whileHover={{ scale: 1.02 }}
+    className="bg-[#1A1A1A] p-6 rounded-xl border border-[#1F1F1F] hover:border-[#EA033F]/50 transition-all duration-300"
+  >
+    <div className="flex items-center justify-between mb-4">
+      <h4 className="text-lg font-semibold text-white">Self Assessment</h4>
+      {employeeData.hasCompletedSelfAssessment ? (
+        <span className="bg-green-500/20 text-green-500 text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center">
+          <FaCheckCircle className="mr-1" /> Completed
+        </span>
+      ) : (
+        <span className="bg-red-500/20 text-red-500 text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center">
+          <FaTimesCircle className="mr-1" /> Not Completed
+        </span>
+      )}
+    </div>
+    <div className="space-y-3">
+      <div>
+        <span className="text-sm text-gray-400">Status:</span>
+        <span className="ml-2 font-medium text-white">
+          {employeeData.hasCompletedSelfAssessment ? 'Completed' : 'Not Completed'}
+        </span>
+      </div>
+      <div>
+        <span className="text-sm text-gray-400">Last Completed:</span>
+        <span className="ml-2 font-medium text-white">
+          {employeeData.lastAssessmentCompletionDate 
+            ? new Date(employeeData.lastAssessmentCompletionDate).toLocaleDateString()
+            : 'Never'}
+        </span>
+      </div>
+      
+    </div>
+  </motion.div>
 
             {/* Improvement Suggestions */}
             <div className="bg-[#1A1A1A] p-6 rounded-xl border border-[#1F1F1F]">
@@ -407,7 +440,7 @@ const AppraisalPage = () => {
 
     {/* Contact Info */}
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
+      <h4 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
         Contact Us
       </h4>
       <ul className="space-y-3">
@@ -432,7 +465,7 @@ const AppraisalPage = () => {
 
     {/* Social Links */}
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text border-b border-[#EA033F]/30 pb-2">
+      <h3 className="text-lg font-semibold text-[#F7F7F7] border-b border-[#EA033F]/30 pb-2">
         Connect With Us
       </h3>
       <div className="flex space-x-6">
