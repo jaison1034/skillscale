@@ -11,6 +11,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import img from '../../assets/images.png';
 import logo from "../../assets/logo.webp";
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import axiosInstance from "../../axiosInstance";
 
 const AppraisalPage = () => {
   const { user } = useUser();
@@ -28,7 +29,7 @@ const AppraisalPage = () => {
 
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/employees/${user.id}`);
+        const response = await axiosInstance.get(`/employees/${user.id}`);
         setEmployeeData(response.data);
       } catch (err) {
         setEmployeeData({
